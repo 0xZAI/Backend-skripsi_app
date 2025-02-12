@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    /* Reset Default Styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      height: 100%;
+    }
+
+    /* Container untuk Login */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      width: 350px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo-img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+      color: #333;
+    }
+
+    /* Form Styling */
+    .login-form .form-group {
+      margin-bottom: 15px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .login-form input:focus {
+      border-color: #007bff;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .login-box {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .logo-img {
+        width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo">
+        <img src="/logo.png" alt="" class="logo-img">
+        <h1 class="login-title">Login</h1>
+      </div>
+      <form id="login-form" class="login-form">
+        <div class="form-group">
+          <input type="text" id="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        window.location.href = '/';
+      } else {
+        alert('Login gagal!');
+      }
+    });
+  </script>
+</body>
+</html>
